@@ -54,7 +54,7 @@ end
 nb_gossip.times do |x|
   gossip = Gossip.create(
       title: Faker::Lorem.paragraph_by_chars(number: 10, supplemental: false),
-      content: Faker::Lorem.paragraph_by_chars(number: 50, supplemental: false),
+      content: Faker::Lorem.paragraph_by_chars(number: 300, supplemental: false),
       user_id: users.sample.id)
   gossips << gossip
   puts "Seeding gossip nb#{x}"

@@ -1,2 +1,27 @@
-<h1>Comments#edit</h1>
-<p>Find me in app/views/comments/edit.html.erb</p>
+<!-- DISPLAY DU FORMULAIRE -->
+<% content_for :title, "Edit a Comment" %>
+<!-- Affichage Stylisé du Gossip-->
+<% if !@comment.nil? && @comment.errors.any? %>
+	<div class="alert alert-danger">
+	  <p>We were not able to add your comment for the following reasons :</p>
+	  <ul>
+	    <% @comment.errors.full_messages.each do |message| %>
+	      <li><%= message %></li>
+	    <% end %>
+	  </ul>
+	</div>
+<% end %>
+<div class ='align-middle'>
+	<div class="card mt-5 ml-5 mr-5" style="height:350px">
+		<h5 class="card-title ml-5 pt-5 mb-2">Edit your comment</h5>
+	  <div class="card-body">
+		<%= form_for gossip_comments_path([@comment, @gossip]), method: :patch do |f| %>
+
+	<div class=" form-group">
+	<label class="card-title">Content </label>
+	<%=f.text_area :content, :value => @comment.content, class: 'form-control' %>
+	</div>
+	<div class="form-group">
+	    <button type="submit">Edit Comment </button>
+	</div>
+<% end %>

@@ -4,13 +4,13 @@
 
 <% if params[:notice]%>
  <div class="alert alert-success">
-  <strong>Success!</strong> We added your Gossip to the database.
+  <strong>Success!</strong> Operation successful
 	</div>
 <% end %>
 
 <!-- Affichage Stylisé du Gossip-->
 <div class ='align-middle text-center'>
-	<div class="card mt-5 ml-5 mr-5" style="height:275px">
+	<div class="card mt-5 ml-5 mr-5" style="height:350px">
 	  <div class="card-body">
 	    <h5 class="card-title"><%= @gossip.title %></h5>
 	    <p class="card-title"><%= @gossip.created_at.strftime("%d/%m/%Y") %></p>
@@ -24,8 +24,8 @@
 
 
 <!-- DISPLAY DES COMMENTAIRES -->
-<h1 class='text-center mt-2 mb-2'>Comments</h1>
-<h1 class='text-center mt-2 mb-2'><%= link_to "Add your comment", {controller: "comments", action: "new", id: @gossip.id}, class: 'btn btn-secondary' %></h1>
+<h1 class='text-center mt-4 mb-4'>Comments</h1>
+<h1 class='text-center mt-2 mb-2'><%= link_to "Add your comment", new_gossip_comment_path(@gossip.id), class: 'btn btn-secondary' %></h1>
 <div class='container-fluid'>
 	<div class="row">
 		<% @comments.each do |comment| %>
@@ -35,6 +35,7 @@
 					    <%= link_to comment.user.first_name , users_path(:id => comment.user.id)%></h5>
 				<p class="card-title"><%= comment.created_at.strftime("%d/%m/%Y") %></p>
 			    <p class="card-title"><%= comment.content %></p>
+			    <%= link_to "Edit this comment", edit_gossip_comment_path(@gossip.id, comment.id), class: 'btn btn-secondary' %>
 			  </div>
 			</div>
 		<%end%>
