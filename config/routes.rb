@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
 
+ 
+  
   root 'gossips#index'
 
   # static pages controller
   get '/static_pages/contact', to: 'static_pages#contact'
   get '/static_pages/team', to: 'static_pages#team'
 
-  #Gossip controller
-  resource :gossips
-  resource :users
-  resource :cities
+  resources :gossips
+  resources :users
+  resources :cities
+  resources :comments
+ 
+
 
   
 end

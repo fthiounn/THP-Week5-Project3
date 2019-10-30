@@ -7,9 +7,26 @@
 	    <p class="card-title"><strong>Age : </strong> <%= @user.age %></p>
 	    <p class="card-title"><strong>From : </strong><%= link_to @city.name ,cities_path(:id => @city.id)%></p>
 	    <p class="card-text"> <strong>Bio:</strong><br/><%= @user.description %></p>
-	    <p class="card-text"> <strong>Joined The GOssip Project : </strong><%= @user.created_at.strftime("%d/%m/%Y") %></p>
+	    <p class="card-text"> <strong>Joined The Gossip Project : </strong><%= @user.created_at.strftime("%d/%m/%Y") %></p>
 	    <p class="card-text"> <strong>Gossips shared : </strong><%= @nb_gossips %></p>
 	    <p class="card-text"> <strong>Comments : </strong><%= @nb_comments %></p>
 	  </div>
+	</div>
+</div>
+
+
+<!-- DISPLAY DES GOSSIPS ASSOCIES A CET USER -->
+<h1 class='text-center mt-2 mb-2'>Gossips From <%= @user.first_name %></h1>
+<div class='container-fluid'>
+	<div class="row">
+		<% @gossips_arrray.each do |gossip| %>
+			<div class="col-4 col-sm-4 col-md-4 col-lg-4 mt-5 text-center" style="width: 18rem">
+			  <div class="card-body">
+			    <h5 class="card-title"><%= gossip.title %></h5>
+			    <p class="card-title">A gossip from : <%= link_to gossip.user.first_name , users_path(:id => gossip.user.id)%></p>
+			    <%= link_to "See this Gossip", gossips_path(:id => gossip.id), class: 'btn btn-primary' %>
+			  </div>
+			</div>
+		<%end%>
 	</div>
 </div>

@@ -2,7 +2,7 @@
 
 
 
-<% if params[:notice] %>
+<% if params[:notice]%>
  <div class="alert alert-success">
   <strong>Success!</strong> We added your Gossip to the database.
 	</div>
@@ -10,12 +10,14 @@
 
 <!-- Affichage Stylisé du Gossip-->
 <div class ='align-middle text-center'>
-	<div class="card mt-5 ml-5 mr-5" style="height:200px">
+	<div class="card mt-5 ml-5 mr-5" style="height:275px">
 	  <div class="card-body">
 	    <h5 class="card-title"><%= @gossip.title %></h5>
 	    <p class="card-title"><%= @gossip.created_at.strftime("%d/%m/%Y") %></p>
-	    <p class="card-title">A gossip shared by : <%= link_to @gossip.user.first_name , users_path(:id => @gossip.user.id)%> from : <%= link_to @gossip.user.city.name ,cities_path(:id => @gossip.user.city.id)%></p>
-	    <p class="card-text"><%= @gossip.content %></p>
+	    <p class="card-title">A gossip shared by : <%= link_to @gossip.user.first_name, {controller: "users", action: "show", id: @gossip.user.id}%> from : <%= link_to @gossip.user.city.name , {controller: "cities", action: "show", id: @gossip.user.city.id}%></p>
+	    <p class="card-text mb-5"><%= @gossip.content %></p>
+	    <%= link_to "Edit this Gossip", {controller: "gossips", action: "edit", id: @gossip.id}, class: 'btn btn-primary mr-5' %>
+	    <%= link_to 'Destroy', gossip_path(@gossip), class: 'btn btn-danger ml-5', method: :delete%>
 	  </div>
 	</div>
 </div>
@@ -23,12 +25,13 @@
 
 <!-- DISPLAY DES COMMENTAIRES -->
 <h1 class='text-center mt-2 mb-2'>Comments</h1>
+<h1 class='text-center mt-2 mb-2'><%= link_to "Add your comment", {controller: "comments", action: "new", id: @gossip.id}, class: 'btn btn-secondary' %></h1>
 <div class='container-fluid'>
 	<div class="row">
 		<% @comments.each do |comment| %>
 			<div class="col-4 col-sm-4 col-md-4 col-lg-4 mt-5 text-center" style="width: 18rem">
 			  <div class="card-body">
-			    <h5 class="card-title">From : 
+			    <h5 class="card-title">Comment <fieldset></fieldset>rom : 
 					    <%= link_to comment.user.first_name , users_path(:id => comment.user.id)%></h5>
 				<p class="card-title"><%= comment.created_at.strftime("%d/%m/%Y") %></p>
 			    <p class="card-title"><%= comment.content %></p>
