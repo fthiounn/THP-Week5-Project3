@@ -1,0 +1,15 @@
+<% content_for :title, "Profile" %>
+
+<div class ='align-middle'>
+	<div class="card mt-5 ml-5 mr-5" style="height:300px">
+	  <div class="card-body">
+	    <h5 class="card-title"><%= @user.first_name %> <%= @user.last_name %></h5>
+	    <p class="card-title"><strong>Age : </strong> <%= @user.age %></p>
+	    <p class="card-title"><strong>From : </strong><%= link_to @city.name ,cities_path(:id => @city.id)%></p>
+	    <p class="card-text"> <strong>Bio:</strong><br/><%= @user.description %></p>
+	    <p class="card-text"> <strong>Joined The GOssip Project : </strong><%= @user.created_at.strftime("%d/%m/%Y") %></p>
+	    <p class="card-text"> <strong>Gossips shared : </strong><%= @nb_gossips %></p>
+	    <p class="card-text"> <strong>Comments : </strong><%= @nb_comments %></p>
+	  </div>
+	</div>
+</div>

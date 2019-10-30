@@ -12,78 +12,119 @@
 - go to http://localhost:3000 and enjoy ;)
 - type in http://localhost:3000/home/:id to go to the hidder url (question 2.4)
 	where the id is an existing user id in the database
-- team and contact page are bootstrat templates 
+- team and contact page are bootstrat templates
+
+ 
 
 
-#Projet : The Gossip Project, les premières views
+#Projet : The Gossip Project : Full CRUD
   
-Note : le projet est à faire en pair-programming.
-
 1. Introduction
-Bienvenue dans ta première application Rails qui déchire ! Aujourd'hui tu vas commencer un projet qui te prendra toute la semaine : The Gossip Project. Nous allons te demander de reprendre le backend de la semaine dernière (en modifiant quelques éléments), puis tu vas ajouter les bons controllers, les bonnes vues, pour qu'à la fin de la semaine vous puissiez commérer en toute tranquilité.
+Dans ce projet, tu vas faire ton premier CRUD entier en Rails. Je sais pas si tu te rends compte de ce que ça représente : le CRUD sur une ressource, c'est la base de tout site web ! Et d'ici ce soir, t'en auras fait un : Pwaaaa ! C'est ouf !
 
-Voici le programme de la semaine :
+Pour avoir une vision complète, nous allons travailler sur les potins en acceptant toutes les actions du CRUD : on va les créer, les afficher, les modifier et les supprimer. Et puisqu'à THP on aime bien te pousser à fond, on va même te demander d'implémenter une partie de CRUD sur les commentaires de potins. De la bombe 💣.
 
-Aujourd'hui sera consacré aux premières pages de l'application : quelques pages statiques et les pages potins
-Demain sera consacré à la création d'un potin
-Mercredi sera consacré au CRUD complet des potins
-Jeudi sera consacré aux commentaires des potins, aux likes des potins, et à la gestion d'utilisateurs
-Vendredi sera consacré à l'identification des potins
-Ce programme consiste en gros à te faire ajouter les controllers et les vues aux models solides que tu as codés la semaine dernière. Comment ajouter du front aux bases de données. Puis la semaine prochaine nous verrons les techniques avancées, comme l'envoi d'email, la gestion des photos de profil, la gestion du front, afin que tu ressortes de ces trois semaines de Rails avec un rendu professionnel.
+⚠️Bonnes pratiques ⚠️ : nous te conseillons de faire des commits à chaque sous-chapitre de cet exercice. Ainsi, si jamais tu veux tester quelque chose, tu peux écrire ton code et l'exécuter quitte à faire un git reset --hard pour revenir au commit précédent. Très pratique pour repartir de la dernière étape fonctionnelle quand tu as un truc qui merde 💩
 
 2. Le projet
-Nous allons commencer aujourd'hui par créer les premières pages :
+Voici ce qui t'attend dans le projet du jour :
 
-La page d'accueil, bien entendu. Cette page d'accueil affichera tous les potins créés
-La page qui présente l'équipe de The Gossip Project, aka toi et ton binome
-La page de contact où tu vas balancer une superbe adresse de contact
-Une page de bienvenue, qui accueille l'utilisateur en fonction du nom passé dans l'URL
-Dans la page d'accueil, il sera possible de cliquer sur chaque potin pour en "Voir plus", ce qui aura pour effet d'aller sur la page du potin.
+On va repartir du projet d'hier ✌
+On va utiliser Bootstrap pour lui donner un peu de pep's
+Nous allons faire la page potin (affichage d'un potin), la page utilisateur et la page ville
+Nous allons faire l'édition des potins
+Nous allons faire en sorte qu'il soit possible de supprimer un potin à partir de la page potin
+Nous allons intégrer et afficher les commentaires de potins
+Inutile de te rappeler que toutes tes routes doivent être en mode REST : l'usage de resources est ici obligatoire.
 
-Enfin, puisque c'est toi, nous allons mettre du CSS dans le site, grâce notamment à Bootstrap.
+Allez, c'est parti ! Commence par reprendre ton projet d'hier.
 
-2.1. Les bases de l'application : installation et models
-Ce projet te suivra tout au long de cette semaine, mais nous allons te demander de ne pas perdre le rythme des migrations. Ainsi, nous allons te demander de créer une nouvelle application the-gossip-project (avec PostgreSQL), puis d'importer les migrations, models, et seed de l'ancien exercice. Cela permettra de te replonger en douceur dans le bain des bases de données sans te faire perdre trop de temps.
+2.1. Un joli front ?
+Maintenant que tu as fait tes premières pages, et que tu sais qu'on peut faire du Bootstrap avec un simple CDN, nous allons faire en sorte que notre site ressemble à quelque chose de potable. Assure-toi que ton projet d'hier soit bien connecté au CDN de Bootstrap. 
+Maintenant, balade-toi sur les pages d'exemples Bootstrap et quand tu vois un élément que tu veux utiliser pour ton Gossip Project, regarde le code source de la page et récupère le nom des classes utilisées pour le construire. Quelques suggestions du chef :
 
-2.2. Les premières pages : présentation et contact
-Tu vas devoir créer deux pages :
+Jumbotron est une bonne base pour le haut de ta page d'accueil
+Tu peux afficher l'index des gossip sous forme d'une liste Bootstrap
+Un autre exemple est celui Social Media de W3Schools.
+Pour le front, fais comme tu le sens avec le double objectif est que 1) le rendu soit présentable, et 2) tu n'y passes pas trop de temps. Le front, si on se laisse prendre au jeu, on peut y passer un temps infini et la leçon du jour, c'est de faire un back-end CRUD !
 
-Une page team, qui présente l'équipe. Elle sera sur l'uri /team
-Une page contact, qui dit comment contacter l'équipe. Elle sera sur l'uri /contact
-Écris un truc simple dans la page, du genre : "voici notre équipe lol mdr 😇❤️😻" pour team par exemple.
+2.2. C'est bon ? T'es chaud ?
+Allez on se lance. On va te donner les directives pour chaque morceau du CRUD, mais on te laisse tout coder. Il faudra ne pas hésiter à te rapporter aux cours des 2 journées précédentes pour 1) faire des routes propres, 2) faire des controllers avec les bonnes méthodes CRUD et 3) afficher les informations dans les views.
 
-2.3. Un peu de mise en forme SVP merci
-2.3.1. Du CSS
-Histoire de ne pas être trop pouilleux, nous allons te demander d'ajouter du CSS. Comment ajouter du CSS vous me dites ? Simple, va dans app/assets/stylesheets/application.css. Puis écris ton CSS en bas du document. Ce CSS concernera toute ton application.
+Let's GO !
 
-On va rajouter un peu de css à cette app, en y mettant Bootstrap. La technique la plus simple et la plus réputée consiste à utiliser le CDN, et coller la ou les lignes de CDN dans le head de ton fichier app/views/layout/application.html.erb.
+2.2.1. Hot Gossip
+L'objectif de cette partie est que tu crées la page potin (la page show qui affiche un potin spécifique). C’est-à-dire que quand tu tapes l'URL /gossips/3, tu arrives sur la page affichant le contenu du potin portant l'ID 3. La page potin doit afficher :
 
-2.3.2. Un header
-Ajoute un header dans toutes les pages de ton application. Celui que tu veux.
+Son titre
+Son contenu
+Son auteur
+La ville de l'auteur
+À partir de la page d'accueil, qui contient l'index des potins, chaque potin doit être accompagné d'un lien pointant vers sa propre page.
 
-2.3.3. Des liens
-Maintenant, dans le header, mets-y les liens pour les pages team et contact.
+2.2.2. Hot user
+L'objectif de cette partie est de faire de même pour la page utilisateur. Cette page doit afficher :
 
-2.4. URL cachée, la bienvenue ;)
-Cette partie sera un chouilla plus tricky, puisqu'elle te demandera de jouer avec les fameux params. Tu as entendu parler du principe des "Landing Pages", un truc cool avec une page adaptée à la cible potentielle qui viendrait sur ton application. Nous allons donc faire cela.
+Son prénom
+Son nom
+Sa description
+Son e-mail
+Son age
+Le nom de sa ville
+Sur la page show d'un potin, l'utilisateur doit pouvoir en savoir plus sur l'auteur du potin en question. Il doit y avoir un lien vers la page show de l'auteur.
 
-En gros ce serait une page qui aurait une url du genre welcome/first_name, et quand la personne irait sur cette page, cette personne serait accueillie par un truc du genre :
+2.2.3. Hot city
+Allez, dernière page show : la page pour afficher le détail d'une ville. Cette page devra afficher :
 
-BIENVENUE first_name ! Ici c'est notre super site de potins, il est chouette, non ?
+Le nom de la ville
+Les potins écrits par les utilisateurs associés à la ville en question (faire une liste comme celle de la page d'accueil)
+La page ville doit être accessible depuis la page utilisateur (lien vers la ville de l'utilisateur) et depuis la page potin (lien vers la ville de l'auteur).
 
-2.5. Page d'accueil : la liste des potins
-La page d'accueil doit souhaiter la bienvenue au visiteur, puis afficher les potins que l'on a en base, en n'affichant que leur author.first_name, et leur title. Évidemment, un lien vers la page d'accueil doit être mis dans le header de l'application.
+2.3. Edit / Update
+Maintenant nous allons faire en sorte de pouvoir éditer les potins 🙌
 
-2.6. Afficher un potin
-Allez, dernier élément : la page qui affiche les potins. Chaque potin en base doit avoir une page dédiée, qui affiche les détails de son auteur (avec un lien pour aller sur la page de l'auteur), son title, son content, puis la date de création.
+Pour ceci, nous allons faire une page /gossips/:id/edit qui affichera un formulaire pour éditer le potin. Ce formulaire devra pointer vers la méthode #update qui aura pour rôle d'actualiser le potin en BDD. Comme pour la méthode #create, cette méthode a des conventions bien précises qui ressemblent à ceci :
 
-Enfin, sur la page d'accueil qui montre tous les potins, nous pourrons trouver pour chaque potin affiché le lien pour sa page.
+def update
+  @model = Model.find(params[:id])
+  if @model.update(tes_params)
+    redirect_to @model
+  else
+    render :edit
+  end
+end
+Si tu sors de ces clous, tu as presque 100 % de chances de te gourer (la seule exception étant la possibilité d'afficher une alerte du genre "Potin bien mis à jour !").
 
-2.7. Afficher un utilisateur
-Sur chaque page potin, nous avons un lien pour afficher la page profil de son utilisateur. La page profil devra afficher les informations importantes de l'utilisateur.
+Astuce : essaye de pré-remplir les champs du formulaire d'édition avec les informations du potin. Ainsi, l'utilisateur n'a qu'à changer les quelques infos qu'il souhaite : pas besoin de tout retaper.
 
-2.8. Un plus joli display
-Pour la page d'accueil, ce serait quand même plus sympa d'avoir les potins dans des cards bootstrap, non ? Puis n'hésite pas à regarder si tu vois d'autres éléments sympas à ajouter dans ton application 😉
+2.4. Détruire
+À partir de la page potin, il est possible de détruire le potin avec un lien pour le faire. Implémente cette fonctionnalité. Après avoir détruit le potin, l'utilisateur doit être redirigé vers l'index des potins.
+
+2.5. Les commentaires de potins
+Ce site de gossips ne serait pas complet sans une section de commentaires où les gens pourraient commenter les ragots des moussaillons. Nous allons donc ajouter une fonctionnalité de commentaires à nos chers gossips.
+
+Ci-dessous on te détaille ce qu'on attend de toi.
+
+2.5.1. Création
+Un commentaire peut être ajouté à un potin uniquement depuis la page show de ce dernier. La page contiendra donc un formulaire pour renseigner le texte du commentaire. Tout comme pour les potins, si un nouveau commentaire est rajouté via ce formulaire il sera assigné à notre utilisateur anonyme (pour le moment).
+
+La page show du gossip affichera tous les commentaires liés à ce gossip, dans l'ordre que tu veux. Pour chaque commentaire, on pourra lire son auteur (ça ne sera pas forcément ton utilisateur anonyme, tu peux aussi faire un seed avec des utilisateurs créés en base), son texte, et on disposera d'un lien pour le modifier.
+
+2.5.2. Modification et destroy
+Créé le page edit du commentaire (page pour le modifier). 
+Cette page permettra également de détruire le commentaire via un bouton.
+
+2.5.3. Compter les commentaires
+Dans la page d'index, chaque potin affiche le nombre de commentaires qui lui sont liés.
+
+2.6. Les tags - BONUS
+Allez, dernier exercice de la journée. Nous allons coder le fait de pouvoir ajouter un tag à la création du potin. Pour ceci, voici comment tu vas faire :
+
+Dans ton seed, tu vas créer une dizaine de tags sympathiques.
+Dans ton formulaire de création de potin, tu vas ajouter un select form où tu pourras sélectionner un tag parmi tous les tags que tu as en base. Deux options pour ça : soit tu le construis toi-même en HTML, soit tu utilises le helper select_tag (lié à un form_tag).
+C'est le controller qui devra mettre à disposition de la view un array contenant tous les tags existant(n'hésite pas à aller voir des exemples sur Stack Overflow).
+GOD MODE : si tu veux pouvoir ajouter plusieurs tags à un potin, n'hésite pas à regarder le concept des nested forms
+Une fois que tu as rajouté cette fonctionnalité à la création d'un potin, ajoute-la aussi lors de l'édition du potin .
 
 3. Rendu attendu
-Une application the_gossip_project qui affiche quelques pages statiques, un système de landing pages personnalisées, un index et un show de potins. Le tout avec Bootstrap et un header qui a les bons liens.
+Un Gossip Project qui commence à avoir de la gueule !

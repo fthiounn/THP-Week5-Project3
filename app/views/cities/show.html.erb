@@ -1,0 +1,28 @@
+<% content_for :title, "City" %>
+
+<div class ='align-middle text-center'>
+	<div class="card mt-5 ml-5 mr-5" style="height:200px">
+	  <div class="card-body">
+	    <h5 class="card-title"> City of <%= @city.name %></h5>
+	    <p class="card-title"><strong>Zip code :  	</strong><%= @city.zip_code%></p>
+	    <p class="card-title"><strong>Members from this city : </strong><%= @nb_members%> </p>
+	  </div>
+	</div>
+</div>
+
+
+<!-- DISPLAY DES GOSSIPS ASSOCIES A CETTE VILLE -->
+<h1 class='text-center mt-2 mb-2'>Gossips From this City</h1>
+<div class='container-fluid'>
+	<div class="row">
+		<% @gossips_arrray.each do |gossip| %>
+			<div class="col-4 col-sm-4 col-md-4 col-lg-4 mt-5 text-center" style="width: 18rem">
+			  <div class="card-body">
+			    <h5 class="card-title"><%= gossip.title %></h5>
+			    <p class="card-title">A gossip from : <%= link_to gossip.user.first_name , users_path(:id => gossip.user.id)%></p>
+			    <%= link_to "See this Gossip", gossips_path(:id => gossip.id), class: 'btn btn-primary' %>
+			  </div>
+			</div>
+		<%end%>
+	</div>
+</div>
