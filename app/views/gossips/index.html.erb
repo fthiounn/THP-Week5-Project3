@@ -2,7 +2,7 @@
 
 <% if params[:notice] %>
  <div class="alert alert-success">
-  <strong>Success!</strong> You successfuly destroyed a gossip.
+  <strong>Success!</strong> The action was successful.
   </div>
 <% end %>
 
@@ -26,6 +26,7 @@
         <div class="card-body">
           <h5 class="card-title"><%= gossip.title %></h5>
           <p class="card-title">A gossip from : <%= link_to gossip.user.first_name, {controller: "users", action: "show", id: gossip.user.id}%></p>
+          <p class="card-title">This gossip has <%= Comment.where(gossip_id: gossip.id).count%> comments</p>
           <%= link_to "See this Gossip", {controller: "gossips", action: "show", id: gossip.id}, class: "btn btn-primary" %>
         </div>
       </div>

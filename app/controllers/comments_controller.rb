@@ -34,5 +34,10 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    if Comment.destroy(params[:comment_id])
+      redirect_to :controller => 'gossips', action: "show", notice: 'Success with deletion', :id => params[:id]
+    else
+      redirect_to action: "show", notice: 'Faillure with deletion', :id => params[:id]
+    end
   end
 end
