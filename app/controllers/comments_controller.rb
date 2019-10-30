@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
+    @gossip = Gossip.find(params[:gossip_id])
   end
 
   def create
@@ -24,7 +25,8 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    if @comment.update(gossip_params)
+    comment_param = params.require(:comment).permit(:content)
+    if @comment.update(comment_param)
       redirect_to :controller => 'gossips',action: 'show', notice: 'Success', :id => params[:gossip_id]
     else
       redirect_to :action => 'edit'

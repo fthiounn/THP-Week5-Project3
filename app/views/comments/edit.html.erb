@@ -15,7 +15,7 @@
 	<div class="card mt-5 ml-5 mr-5" style="height:350px">
 		<h5 class="card-title ml-5 pt-5 mb-2">Edit your comment</h5>
 	  <div class="card-body">
-		<%= form_for gossip_comments_path([@comment, @gossip]), method: :patch do |f| %>
+		<%= form_for [@gossip,@comment] do |f| %>
 
 	<div class=" form-group">
 	<label class="card-title">Content </label>
