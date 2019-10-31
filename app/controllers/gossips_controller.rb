@@ -9,6 +9,7 @@ class GossipsController < ApplicationController
   end
 
   def new
+    @tag = Tag.all
   end
 
   def edit    
@@ -17,6 +18,7 @@ class GossipsController < ApplicationController
 
   def create
     @gossip = Gossip.new(title: params[:gossip_title], content: params[:gossip_content],user: User.find(1))  # avec xxx qui sont les données obtenues à partir du formulaire
+    Gossip_tag.new(gossip_id: @gossip.id, tag: params[:select_tag])
     if @gossip.save # essaie de sauvegarder en base @gossip
         redirect_to :action => 'show', notice: 'Success', :id => @gossip.id
     else

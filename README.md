@@ -1,5 +1,5 @@
 # README
-# THP - Week 5 - Project 1 - The Gossip Project, les premières views
+# THP - Week 5 - Project 3 - The Gossip Project, les premières views
 # François THIOUNN
 
 
